@@ -1,1 +1,163 @@
 # atividade-pratica-poo.02
+
+
+
+    def mostrar_dados(self):
+        print("Placa:", self.placa)
+        print("Modelo:", self.modelo)
+        print("Ano:", self.ano)
+        print("Diária: R$", self.diaria)
+
+    def calcular_valor(self, dias):
+        return self.diaria * dias
+
+
+# Herança
+class Carro(Veiculo):
+    def __init__(self, placa, modelo, ano, diaria, portas):
+        super().__init__(placa, modelo, ano, diaria)
+        self.portas = portas
+
+    def mostrar_tipo(self):
+        print("Tipo: Carro")
+        print("Portas:", self.portas)
+
+
+class Moto(Veiculo):
+    def __init__(self, placa, modelo, ano, diaria, cilindradas):
+        super().__init__(placa, modelo, ano, diaria)
+        self.cilindradas = cilindradas
+
+    def mostrar_tipo(self):
+        print("Tipo: Moto")
+        print("Cilindradas:", self.cilindradas)
+
+
+class Caminhao(Veiculo):
+    def __init__(self, placa, modelo, ano, diaria, carga):
+        super().__init__(placa, modelo, ano, diaria)
+        self.carga = carga
+
+    def mostrar_tipo(self):
+        print("Tipo: Caminhão")
+        print("Carga:", self.carga)
+
+
+# Cliente
+class Cliente:
+    def __init__(self, nome, documento, telefone):
+        self.nome = nome
+        self.documento = documento
+        self.telefone = telefone
+
+    def mostrar_cliente(self):
+        print("Nome:", self.nome)
+        print("Documento:", self.documento)
+        print("Telefone:", self.telefone)
+
+    def atualizar_telefone(self, novo_telefone):
+        self.telefone = novo_telefone
+
+
+# Condutor
+class Condutor:
+    def __init__(self, nome, cnh, idade):
+        self.nome = nome
+        self.cnh = cnh
+        self.idade = idade
+
+    def mostrar_condutor(self):
+        print("Condutor:", self.nome)
+        print("CNH:", self.cnh)
+        print("Idade:", self.idade)
+
+    def dirigir(self):
+        print(self.nome, "está dirigindo.")
+
+
+# Manutenção
+class Manutencao:
+    def __init__(self, data, servico, custo):
+        self.data = data
+        self.servico = servico
+        self.custo = custo
+
+    def mostrar_manutencao(self):
+        print("Data:", self.data)
+        print("Serviço:", self.servico)
+        print("Custo: R$", self.custo)
+
+    def realizar_servico(self):
+        print("Manutenção realizada.")
+
+
+# Contrato
+class Contrato:
+    def __init__(self, data_inicio, data_fim, valor_total, status, cliente, veiculo):
+        self.data_inicio = data_inicio
+        self.data_fim = data_fim
+        self.valor_total = valor_total
+        self.status = status
+        self.cliente = cliente
+        self.veiculo = veiculo
+        self.condutor = None
+
+    def adicionar_condutor(self, condutor):
+        self.condutor = condutor
+
+    def finalizar(self):
+        self.status = "Finalizado"
+
+    def mostrar_contrato(self):
+        print("Data início:", self.data_inicio)
+        print("Data fim:", self.data_fim)
+        print("Valor total: R$", self.valor_total)
+        print("Status:", self.status)
+        print("Cliente:", self.cliente.nome)
+        print("Veículo:", self.veiculo.modelo)
+
+
+# ==========================
+# TESTANDO O PROGRAMA
+# ==========================
+
+# Criando um carro
+carro = Carro("ABC-1234", "Toyota Corolla", 2022, 150, 4)
+
+# Criando cliente
+cliente = Cliente("Gabriel", "12345678900", "99999-9999")
+
+# Criando condutor
+condutor = Condutor("João", "123456789", 30)
+
+# Criando contrato
+contrato = Contrato(
+    "05/10/2026",
+    "10/10/2026",
+    750,
+    "Ativo",
+    cliente,
+    carro
+)
+
+# Composição: o condutor é criado/associado ao contrato
+contrato.adicionar_condutor(condutor)
+
+
+# Exibindo informações
+print("===== VEÍCULO =====")
+carro.mostrar_dados()
+carro.mostrar_tipo()
+
+print("\n===== CLIENTE =====")
+cliente.mostrar_cliente()
+
+print("\n===== CONDUTOR =====")
+condutor.mostrar_condutor()
+
+print("\n===== CONTRATO =====")
+contrato.mostrar_contrato()
+
+print("\n===== FINALIZANDO CONTRATO =====")
+contrato.finalizar()
+print("Novo status:", contrato.status)
